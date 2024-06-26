@@ -25,7 +25,7 @@ export default function MenuPage() {
                 <MenuIcon size={32} color='white' className='cursor-pointer' />
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-56 md:ml-20 ml-14 space-y-2">
+            <DropdownMenuContent className="md:w-56 w-44 md:ml-20 ml-10 space-y-2">
                 {
                     dropdownMenuLinks.map(link => (
 

@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import clsx from "clsx";
 import TooltipPage from "./tooltipComponent/tooltipPage";
 
+
 type Props = {
     editor: Editor | null
 }
@@ -24,6 +25,8 @@ export default function ToolBar({ editor }: Props) {
     }
     return (
         <nav className="border border-input bg-transparent rounded-md p-1 w-fit space-x-1 md:space-y-0 space-y-1 text-center">
+
+
             <TooltipPage
                 trigger={<Button variant={"ghost"} size={"sm"}
                     className={clsx("", editor.isActive('textStyle') && "bg-accent")}
@@ -56,7 +59,7 @@ export default function ToolBar({ editor }: Props) {
                     <Heading1 className={toolBarIcons} />
                 </Button>
             </nav>
-            <Button variant={"ghost"} size={"sm"}
+            <Button variant={'ghost'} size={"sm"}
                 className={clsx("", editor.isActive('bold') && "bg-accent")}
                 onClick={() => editor.chain().focus().toggleBold().run()}
             >

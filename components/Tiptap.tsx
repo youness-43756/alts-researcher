@@ -46,7 +46,7 @@ const Tiptap = ({ description, onclick }:
         ],
         editorProps: {
             attributes: {
-                class: "w-full min-h-56 drop-shadow-sm rounded-md border border-input bg-background px-6 py-5 font-normal text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#538392] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mx-auto",
+                class: "w-full min-h-56 drop-shadow-sm rounded-md border border-input bg-background md:px-6 md:py-5 px-3 py-1.5 font-normal text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#538392] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mx-auto lowercase",
             },
         },
         onUpdate({ editor }) {

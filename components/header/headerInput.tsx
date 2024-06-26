@@ -33,7 +33,7 @@ export default function HeaderInput() {
                         name="text"
                         render={({ field }) => (
                             <FormControl>
-                                <Input placeholder="Search..." required {...field} className="md:h-10 h-9 w-80" />
+                                <Input placeholder="Search..." required {...field} className="md:h-10 h-9 md:w-80 w-60" />
                             </FormControl>
                         )}
                     />

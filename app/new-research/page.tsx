@@ -3,6 +3,7 @@ import TooltipPage from "@/components/tooltipComponent/tooltipPage";
 import { InfoIcon } from "lucide-react";
 
 export default function page() {
+    // console.log();
     return (
         <main className="w-full">
             <div className="flex items-start py-1 justify-center gap-x-[1px] mb-10 text-3xl font-medium tracking-wider leading-5">
