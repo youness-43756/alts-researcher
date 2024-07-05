@@ -49,7 +49,7 @@ export default function FilterContainer({ staticClassName }: { staticClassName: 
                             name="description"
                             render={({ field }) => (
                                 <FormControl>
-                                    <Input placeholder="Search...." {...field} className="max-w-xs float-right" />
+                                    <Input placeholder="Search...." {...field} className="max-w-xs float-right bg-accent" />
                                 </FormControl>
                             )}
                         />
