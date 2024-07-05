@@ -4,7 +4,7 @@ import { InfoIcon } from "lucide-react";
 
 export default function page() {
     return (
-        <main className="w-full h-full overflow-hidden">
+        <main className="h-full">
             <ResearchForm />
         </main>
     )

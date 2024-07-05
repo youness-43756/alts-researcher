@@ -4,8 +4,15 @@ import { useForm } from 'react-hook-form';
 import { Input } from "../ui/input";
 import { SearchContext } from "@/context/searchContext";
 import { useContext } from "react";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 
-export default function FilterContainer() {
+export default function FilterContainer({ staticClassName }: { staticClassName: string }) {
     const form = useForm({
         defaultValues: {
             description: "",
@@ -15,15 +22,25 @@ export default function FilterContainer() {
     if (!context) {
         return;
     }
-    const { setSearchField } = context;
+    const { setSearchField, setView } = context;
 
     const onSubmit = (values: any, e: any) => {
         e.preventDefault();
         setSearchField(values.description)
     }
     return (
-        <section className="flex items-center gap-6 md:mb-4 mb-2 md:mt-0 mt-1 p-1 border-b">
-            <div>View</div>
+        <section className={staticClassName}>
+            <Select onValueChange={(e) => setView(e)}>
+                <SelectTrigger className="w-fit">
+                    <SelectValue placeholder="View" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="small">Small</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="large">Large</SelectItem>
+                </SelectContent>
+            </Select>
+
             <div className="grow">
                 <Form {...form}>
                     <form onChange={form.handleSubmit(onSubmit)}>

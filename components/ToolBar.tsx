@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import clsx from "clsx";
 import TooltipPage from "./tooltipComponent/tooltipPage";
 
-
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 type Props = {
     editor: Editor | null
 }
@@ -22,102 +22,108 @@ export default function ToolBar({ editor }: Props) {
     if (!editor) {
         return null;
     }
+    // const arr = [
+    //     { label: "bold", func: () => editor.chain().focus().toggleBold().run() }
+    // ]
+
     return (
-        <nav className="border border-input bg-transparent rounded-md p-1 px-2 w-fit space-x-1 md:space-y-0 space-y-1 text-center">
-            <TooltipPage
-                trigger={<Button variant={"ghost"} size={"sm"}
-                    className={clsx("", editor.isActive('textStyle') && "bg-accent")}
-                    onClick={() => editor.chain().focus().unsetColor().run()}
-                    data-testid="unsetColor"
-                >
-                    <PaintRoller className={toolBarIcons} />
-                </Button>}
-                content={Colors.map(color => (
-                    <button key={color.textColor}
-                        onClick={() => editor.chain().focus().setColor(color.textColor).run()}
-                        className={clsx(editor.isActive('textStyle', { color: color.textColor }) && "opacity-55")}
-                        data-testid={color.testid}
+        <ScrollArea className="w-fullwhitespace-nowrap rounded-md border">
+            <nav className="bg-transparent rounded-md p-1 px-2 w-max space-x-1 md:space-y-0 space-y-1 text-center">
+                <TooltipPage
+                    trigger={<Button variant={"ghost"} size={"sm"}
+                        className={clsx("", editor.isActive('textStyle') && "bg-accent")}
+                        onClick={() => editor.chain().focus().unsetColor().run()}
+                        data-testid="unsetColor"
                     >
-                        <div className={`${color.bgColor} w-7 h-7 rounded-sm hover:opacity-55`}></div>
-                    </button>
-                ))} />
-            {/* //! Heading */}
-            <nav className="border border-input bg-transparent rounded-md p-1 w-fit space-x-1 inline-flex">
-                <Button variant={"ghost"} size={"sm"}
-                    className={clsx("", editor.isActive('heading', { level: 2 }) && "bg-accent")}
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                        <PaintRoller className={toolBarIcons} />
+                    </Button>}
+                    content={Colors.map(color => (
+                        <button key={color.textColor}
+                            onClick={() => editor.chain().focus().setColor(color.textColor).run()}
+                            className={clsx(editor.isActive('textStyle', { color: color.textColor }) && "opacity-55")}
+                            data-testid={color.testid}
+                        >
+                            <div className={`${color.bgColor} w-7 h-7 rounded-sm hover:opacity-55`}></div>
+                        </button>
+                    ))} />
+                {/* //! Heading */}
+                <nav className="border border-input bg-transparent rounded-md p-1 w-fit space-x-1 inline-flex">
+                    <Button variant={"ghost"} size={"sm"}
+                        className={clsx("", editor.isActive('heading', { level: 1 }) && "bg-accent")}
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+                    >
+                        <Heading1 className={toolBarIcons} />
+                    </Button>
+                    <Button variant={"ghost"} size={"sm"}
+                        className={clsx("", editor.isActive('heading', { level: 2 }) && "bg-accent")}
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                    >
+                        <Heading2 className={toolBarIcons} />
+                    </Button>
+                </nav>
+                <Button variant={'ghost'} size={"sm"}
+                    className={clsx("", editor.isActive('bold') && "bg-accent")}
+                    onClick={() => editor.chain().focus().toggleBold().run()}
                 >
-                    <Heading2 className={toolBarIcons} />
+                    <Bold className={toolBarIcons} />
                 </Button>
-                <Button variant={"ghost"} size={"sm"}
-                    className={clsx("", editor.isActive('heading', { level: 1 }) && "bg-accent")}
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                >
-                    <Heading1 className={toolBarIcons} />
-                </Button>
-            </nav>
-            <Button variant={'ghost'} size={"sm"}
-                className={clsx("", editor.isActive('bold') && "bg-accent")}
-                onClick={() => editor.chain().focus().toggleBold().run()}
-            >
-                <Bold className={toolBarIcons} />
-            </Button>
-
-            <Button variant={"ghost"} size={"sm"}
-                className={clsx("", editor.isActive('underline') && "bg-accent")}
-                onClick={() => editor.chain().focus().toggleUnderline().run()}
-            >
-                <Underline className={toolBarIcons} />
-            </Button>
-            <Button variant={"ghost"} size={"sm"}
-                className={clsx("", editor.isActive('bulletList') && "bg-accent")}
-                onClick={() => editor.chain().focus().toggleBulletList().run()}
-            >
-                <List className={toolBarIcons} />
-            </Button>
-            <nav className="border border-input bg-transparent rounded-md p-1 w-fit space-x-1 inline-flex">
 
                 <Button variant={"ghost"} size={"sm"}
-                    className={clsx("", editor.isActive({ textAlign: 'left' }) && "bg-accent")}
-                    onClick={() => editor.chain().focus().setTextAlign('left').run()}
+                    className={clsx("", editor.isActive('underline') && "bg-accent")}
+                    onClick={() => editor.chain().focus().toggleUnderline().run()}
                 >
-                    <AlignLeft className={toolBarIcons} />
+                    <Underline className={toolBarIcons} />
                 </Button>
                 <Button variant={"ghost"} size={"sm"}
-                    className={clsx("", editor.isActive({ textAlign: 'center' }) && "bg-accent")}
-                    onClick={() => editor.chain().focus().setTextAlign('center').run()}
+                    className={clsx("", editor.isActive('bulletList') && "bg-accent")}
+                    onClick={() => editor.chain().focus().toggleBulletList().run()}
                 >
-                    <AlignCenter className={toolBarIcons} />
+                    <List className={toolBarIcons} />
                 </Button>
-                <Button variant={"ghost"} size={"sm"}
-                    className={clsx("", editor.isActive({ textAlign: 'right' }) && "bg-accent")}
-                    onClick={() => editor.chain().focus().setTextAlign('right').run()}
-                >
-                    <AlignRight className={toolBarIcons} />
-                </Button>
-            </nav>
+                <nav className="border border-input bg-transparent rounded-md p-1 w-fit space-x-1 inline-flex">
+                    <Button variant={"ghost"} size={"sm"}
+                        className={clsx("", editor.isActive({ textAlign: 'left' }) && "bg-accent")}
+                        onClick={() => editor.chain().focus().setTextAlign('left').run()}
+                    >
+                        <AlignLeft className={toolBarIcons} />
+                    </Button>
+                    <Button variant={"ghost"} size={"sm"}
+                        className={clsx("", editor.isActive({ textAlign: 'center' }) && "bg-accent")}
+                        onClick={() => editor.chain().focus().setTextAlign('center').run()}
+                    >
+                        <AlignCenter className={toolBarIcons} />
+                    </Button>
+                    <Button variant={"ghost"} size={"sm"}
+                        className={clsx("", editor.isActive({ textAlign: 'right' }) && "bg-accent")}
+                        onClick={() => editor.chain().focus().setTextAlign('right').run()}
+                    >
+                        <AlignRight className={toolBarIcons} />
+                    </Button>
+                </nav>
 
-            {/* //! Undo & Redo */}
-            <nav className="w-fit inline-flex">
-                <Button variant={"ghost"} size={"sm"}
-                    onClick={() => editor.chain().focus().undo().run()}
-                    disabled={!editor.can().chain().focus().undo().run()}
+                {/* //! Undo & Redo */}
+                <nav className="w-fit inline-flex">
+                    <Button variant={"ghost"} size={"sm"}
+                        onClick={() => editor.chain().focus().undo().run()}
+                        disabled={!editor.can().chain().focus().undo().run()}
+                    >
+                        <Undo className={toolBarIcons} />
+                    </Button>
+                    <Button variant={"ghost"} size={"sm"}
+                        onClick={() => editor.chain().focus().redo().run()}
+                        disabled={!editor.can().chain().focus().redo().run()}
+                    >
+                        <Redo className={toolBarIcons} />
+                    </Button>
+                </nav>
+                <Button
+                    variant={"save"} size={"sm"} className="md:ml-4"
+                // onClick={}
                 >
-                    <Undo className={toolBarIcons} />
-                </Button>
-                <Button variant={"ghost"} size={"sm"}
-                    onClick={() => editor.chain().focus().redo().run()}
-                    disabled={!editor.can().chain().focus().redo().run()}
-                >
-                    <Redo className={toolBarIcons} />
+                    <Save className={toolBarIcons} />
                 </Button>
             </nav>
-            <Button
-                variant={"save"} size={"sm"} className="md:ml-4"
-            // onClick={}
-            >
-                <Save className={toolBarIcons} />
-            </Button>
-        </nav>
+            <ScrollBar orientation="horizontal" />
+        </ScrollArea>
     )
 }
