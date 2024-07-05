@@ -6,17 +6,17 @@ import { SearchContext } from "@/context/searchContext";
 import { useContext } from "react";
 
 export default function FilterContainer() {
+    const form = useForm({
+        defaultValues: {
+            description: "",
+        }
+    })
     const context = useContext(SearchContext);
     if (!context) {
         return;
     }
     const { setSearchField } = context;
 
-    const form = useForm({
-        defaultValues: {
-            description: "",
-        }
-    })
     const onSubmit = (values: any, e: any) => {
         e.preventDefault();
         setSearchField(values.description)
