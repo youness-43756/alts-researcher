@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import HeaderContainer from "@/components/header/headerContainer";
 import { SearchProvider } from "@/context/searchContext";
 
 const inter = Poppins({
@@ -21,11 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${inter.className} bg-[#F6F5F2]`}>
         <div className="max-w-[1440px] mx-auto md:px-8 px-2">
           <SearchProvider>
-            <HeaderContainer />
-            <div className="md:px-6 px-3 py-4">
+            <div className="md:px-6 px-3 py-4 max-h-screen h-screen">
               {children}
             </div>
           </SearchProvider>

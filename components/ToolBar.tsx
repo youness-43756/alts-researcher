@@ -11,7 +11,6 @@ type Props = {
 }
 const toolBarIcons = "h-4 w-4";
 const Colors = [
-    { textColor: "#000000", bgColor: "bg-black", testid: "setBlack" },
     { textColor: "#FF0000", bgColor: "bg-red-500", testid: "setRed" },
     { textColor: "#008000", bgColor: "bg-green-500", testid: "setGreen" },
     { textColor: "#FFA500", bgColor: "bg-orange-500", testid: "setOrange" },
@@ -24,9 +23,7 @@ export default function ToolBar({ editor }: Props) {
         return null;
     }
     return (
-        <nav className="border border-input bg-transparent rounded-md p-1 w-fit space-x-1 md:space-y-0 space-y-1 text-center">
-
-
+        <nav className="border border-input bg-transparent rounded-md p-1 px-2 w-fit space-x-1 md:space-y-0 space-y-1 text-center">
             <TooltipPage
                 trigger={<Button variant={"ghost"} size={"sm"}
                     className={clsx("", editor.isActive('textStyle') && "bg-accent")}
