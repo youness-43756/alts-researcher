@@ -31,7 +31,7 @@ export default function FilterContainer({ staticClassName }: { staticClassName: 
     return (
         <section className={staticClassName}>
             <Select onValueChange={(e) => setView(e)}>
-                <SelectTrigger className="w-fit">
+                <SelectTrigger className="w-fit shadow-sm focus:ring-0 focus:ring-offset-0">
                     <SelectValue placeholder="View" />
                 </SelectTrigger>
                 <SelectContent>
@@ -49,7 +49,7 @@ export default function FilterContainer({ staticClassName }: { staticClassName: 
                             name="description"
                             render={({ field }) => (
                                 <FormControl>
-                                    <Input placeholder="Search...." {...field} className="max-w-xs float-right bg-accent" />
+                                    <Input placeholder="Search alts" {...field} className="max-w-xs float-right shadow-sm focus-visible:ring-0 focus-visible:ring-offset-0" />
                                 </FormControl>
                             )}
                         />

@@ -1,7 +1,7 @@
 "use client"
 import { Form, FormControl, FormField } from "../ui/form";
 import { useForm } from 'react-hook-form';
-import Tiptap from "../Tiptap";
+import Tiptap from "../editor/Tiptap";
 
 
 export default function ResearchForm() {

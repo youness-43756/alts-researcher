@@ -12,15 +12,15 @@ import TextAlign from '@tiptap/extension-text-align'
 import BulletList from '@tiptap/extension-bullet-list'
 import { Color } from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { Skeleton } from "@/components/ui/skeleton"
 
 const Tiptap = ({ description, onclick }:
     { description: string, onclick: (richText: string) => void }) => {
-
     const editor = useEditor({
         content: '',
         extensions: [
-            StarterKit.configure({
-            }),
+            StarterKit.configure({}),
             Bold, Underline, Document, Paragraph, Text, TextStyle,
             Color.configure({
                 types: ['textStyle'],
@@ -46,21 +46,32 @@ const Tiptap = ({ description, onclick }:
                 alignments: ['left', 'right', 'center'],
             }),
         ],
+
         editorProps: {
             attributes: {
-                class: "w-full h-96 rounded-md border md:p-8 p-4 overflow-y-scroll focus-visible:outline-none",
+                class: "w-full h-full rounded-md border md:p-8 p-4 overflow-y-scroll focus-visible:outline-none",
             },
         },
+
         onUpdate({ editor }) {
             onclick(editor.getHTML());
 
         },
     })
+    if (!editor) {
+        return (
+            <div className='w-full h-full flex flex-col space-y-2 mt-2'>
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-96 w-full" />
+            </div>
+        )
+    }
     return (
         <div className='w-full h-full flex flex-col space-y-2 mt-2'>
-            <div className=''>
+            <ScrollArea className="w-full whitespace-nowrap rounded-md border">
                 <ToolBar editor={editor} />
-            </div>
+                <ScrollBar orientation="horizontal" />
+            </ScrollArea>
             <EditorContent editor={editor} />
         </div>
     )
