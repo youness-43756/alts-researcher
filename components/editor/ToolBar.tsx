@@ -20,10 +20,10 @@ const Colors = [
 ];
 
 export default function ToolBar({ editor }: Props) {
+    const context = useContext(SearchContext);
     if (!editor) {
         return null;
     }
-    const context = useContext(SearchContext);
     if (!context) {
         return;
     }
