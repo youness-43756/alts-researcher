@@ -64,7 +64,7 @@ const Tiptap = ({ onclick }: TiptapProps) => {
         ],
         editorProps: {
             attributes: {
-                class: "w-full h-96 shadow-sm rounded-md border md:p-8 p-4 overflow-hidden focus-visible:outline-none",
+                class: "w-full h-96 shadow-sm rounded-md border md:p-8 p-6 overflow-hidden focus-visible:outline-none",
             },
         },
         onUpdate({ editor }) {
