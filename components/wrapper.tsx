@@ -10,8 +10,8 @@ export default function Wrapper() {
     const { searchField } = context;
 
     return (
-        <div className="h-full flex items-center justify-center">
-            no data!!!!! : {searchField}
+        <div className="h-full w-full flex items-center justify-center text-muted text-2xl font-semibold">
+            <span className="select-none">No data!</span>
         </div>
     )
 }

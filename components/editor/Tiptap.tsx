@@ -14,20 +14,28 @@ import { Color } from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Skeleton } from "@/components/ui/skeleton"
+import Placeholder from '@tiptap/extension-placeholder'
+import { TiptapProps } from '@/lib/dataTypes'
 
-const Tiptap = ({ description, onclick }:
-    { description: string, onclick: (richText: string) => void }) => {
+
+const Tiptap = ({ onclick }: TiptapProps) => {
     const editor = useEditor({
         content: '',
         extensions: [
-            StarterKit.configure({}),
+            StarterKit.configure({
+                paragraph: false,
+                bold: false,
+                document: false,
+                text: false,
+                heading: false,
+                bulletList: false,
+            }),
             Bold, Underline, Document, Paragraph, Text, TextStyle,
             Color.configure({
                 types: ['textStyle'],
             }),
             Heading.configure({
-                levels: [1, 2],
-
+                levels: [1, 2, 3],
                 HTMLAttributes: {
                     class: "font-normal"
                 }
@@ -41,21 +49,26 @@ const Tiptap = ({ description, onclick }:
                 keepAttributes: true,
             }),
             TextAlign.configure({
-                types: ['heading', 'paragraph'],
+                types: ['heading', "bulletList", 'paragraph'],
                 defaultAlignment: "left",
-                alignments: ['left', 'right', 'center'],
+                alignments: ['left', 'center'],
+            }),
+            Placeholder.configure({
+                placeholder: ({ editor }) => {
+                    if (editor?.isEmpty) {
+                        return 'Type here'
+                    }
+                    return ""
+                },
             }),
         ],
-
         editorProps: {
             attributes: {
-                class: "w-full h-96 rounded-md border md:p-8 p-4 overflow-y-scroll focus-visible:outline-none",
+                class: "w-full h-96 shadow-sm rounded-md border md:p-8 p-4 overflow-hidden focus-visible:outline-none",
             },
         },
-
         onUpdate({ editor }) {
             onclick(editor.getHTML());
-
         },
     })
     if (!editor) {
@@ -66,9 +79,10 @@ const Tiptap = ({ description, onclick }:
             </div>
         )
     }
+
     return (
-        <div className='w-full h-full flex flex-col space-y-2 mt-2'>
-            <ScrollArea className="w-full whitespace-nowrap rounded-md border">
+        <div className='max-w-full h-full flex flex-col md:gap-4 gap-2'>
+            <ScrollArea className="w-full whitespace-nowrap rounded-md border shadow-sm">
                 <ToolBar editor={editor} />
                 <ScrollBar orientation="horizontal" />
             </ScrollArea>

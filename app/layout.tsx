@@ -1,12 +1,7 @@
-import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import type { Metadata } from "next";
 import { SearchProvider } from "@/context/searchContext";
-
-const inter = Poppins({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
-});
+import { poppins } from "@/lib/font/font";
 
 export const metadata: Metadata = {
   title: "Alts researcher",
@@ -20,8 +15,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#F6F5F2]`}>
-        <div className="max-w-[1440px] mx-auto md:px-6 px-3">
+      <body className={`${poppins.className} bg-[#F6F5F2]`}>
+        <div className="max-w-[1440px] mx-auto md:px-8 px-4">
           <SearchProvider>
             <div className="md:py-4 py-3 max-h-screen h-screen">
               {children}

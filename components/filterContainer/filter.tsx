@@ -10,7 +10,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 export default function FilterContainer({ staticClassName }: { staticClassName: string }) {
     const form = useForm({
@@ -22,15 +22,16 @@ export default function FilterContainer({ staticClassName }: { staticClassName: 
     if (!context) {
         return;
     }
-    const { setSearchField, setView } = context;
+    const { setSearchField, setView, view } = context;
 
     const onSubmit = (values: any, e: any) => {
         e.preventDefault();
         setSearchField(values.description)
     }
+
     return (
         <section className={staticClassName}>
-            <Select onValueChange={(e) => setView(e)}>
+            <Select onValueChange={(e) => setView(e)} value={view}>
                 <SelectTrigger className="w-fit shadow-sm focus:ring-0 focus:ring-offset-0">
                     <SelectValue placeholder="View" />
                 </SelectTrigger>
@@ -49,7 +50,9 @@ export default function FilterContainer({ staticClassName }: { staticClassName: 
                             name="description"
                             render={({ field }) => (
                                 <FormControl>
-                                    <Input placeholder="Search alts" {...field} className="max-w-xs float-right shadow-sm focus-visible:ring-0 focus-visible:ring-offset-0" />
+                                    <Input
+                                        placeholder="Search coins" {...field}
+                                        className="px-4 max-w-sm float-right shadow-sm focus-visible:ring-0 focus-visible:ring-offset-0" />
                                 </FormControl>
                             )}
                         />

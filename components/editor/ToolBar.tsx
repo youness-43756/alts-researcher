@@ -4,29 +4,40 @@ import { AlignCenter, AlignLeft, AlignRight, Bold, Heading1, Heading2, List, Pai
 import { Button } from "../ui/button";
 import clsx from "clsx";
 import TooltipPage from "../tooltipComponent/tooltipPage";
+import { useContext } from "react";
+import { SearchContext } from "@/context/searchContext";
 
 type Props = {
     editor: Editor | null
 }
 const toolBarIcons = "h-4 w-4";
 const Colors = [
+    { textColor: "#000000", bgColor: "bg-black", testid: "setBlack" },
     { textColor: "#FF0000", bgColor: "bg-red-500", testid: "setRed" },
     { textColor: "#008000", bgColor: "bg-green-500", testid: "setGreen" },
     { textColor: "#FFA500", bgColor: "bg-orange-500", testid: "setOrange" },
     { textColor: "#0000FF", bgColor: "bg-blue-500", testid: "setBlue" }
 ];
 
-
 export default function ToolBar({ editor }: Props) {
     if (!editor) {
         return null;
+    }
+    const context = useContext(SearchContext);
+    if (!context) {
+        return;
+    }
+
+    const { editorContent } = context;
+    const SaveEditorContentToDatabase = () => {
+        console.log(editorContent);
     }
 
     return (
         <nav className="bg-transparent rounded-md md:p-2 px-2 py-1 w-max space-x-1 text-center">
             <TooltipPage
                 trigger={<Button variant={"ghost"} size={"sm"}
-                    className={clsx("", editor.isActive('textStyle') && "bg-accent")}
+                    className={clsx("max-md:px-0 max-md:mr-1", editor.isActive('textStyle') && "md:bg-accent")}
                     onClick={() => editor.chain().focus().unsetColor().run()}
                     data-testid="unsetColor"
                 >
@@ -35,12 +46,14 @@ export default function ToolBar({ editor }: Props) {
                 content={Colors.map(color => (
                     <button key={color.textColor}
                         onClick={() => editor.chain().focus().setColor(color.textColor).run()}
-                        className={clsx(editor.isActive('textStyle', { color: color.textColor }) && "opacity-55")}
+                        className={clsx(editor.isActive('textStyle', { color: color.textColor }) && "opacity-60 scale-110 mx-0.5")}
                         data-testid={color.testid}
                     >
-                        <div className={`${color.bgColor} w-7 h-7 rounded-sm hover:opacity-55`}></div>
+                        <div className={`${color.bgColor} w-7 h-7 rounded-sm hover:opacity-60 hover:scale-105`}></div>
                     </button>
                 ))} />
+
+
             {/* //! Heading */}
             <nav className="border border-input bg-transparent rounded-md p-1 w-fit space-x-1 inline-flex">
                 <Button variant={"ghost"} size={"sm"}
@@ -75,6 +88,8 @@ export default function ToolBar({ editor }: Props) {
             >
                 <List className={toolBarIcons} />
             </Button>
+
+            {/* //!alignement */}
             <nav className="border border-input bg-transparent rounded-md p-1 w-fit space-x-1 inline-flex">
                 <Button variant={"ghost"} size={"sm"}
                     className={clsx("", editor.isActive({ textAlign: 'left' }) && "bg-accent")}
@@ -87,12 +102,6 @@ export default function ToolBar({ editor }: Props) {
                     onClick={() => editor.chain().focus().setTextAlign('center').run()}
                 >
                     <AlignCenter className={toolBarIcons} />
-                </Button>
-                <Button variant={"ghost"} size={"sm"}
-                    className={clsx("", editor.isActive({ textAlign: 'right' }) && "bg-accent")}
-                    onClick={() => editor.chain().focus().setTextAlign('right').run()}
-                >
-                    <AlignRight className={toolBarIcons} />
                 </Button>
             </nav>
 
@@ -113,7 +122,7 @@ export default function ToolBar({ editor }: Props) {
             </nav>
             <Button
                 variant={"save"} size={"sm"} className="md:ml-4"
-            // onClick={}
+                onClick={SaveEditorContentToDatabase}
             >
                 <Save className={toolBarIcons} />
             </Button>

@@ -1,32 +1,19 @@
 "use client"
-import { Form, FormControl, FormField } from "../ui/form";
-import { useForm } from 'react-hook-form';
+import { SearchContext } from "@/context/searchContext";
 import Tiptap from "../editor/Tiptap";
+import { useContext } from "react";
 
 
 export default function ResearchForm() {
-    const form = useForm({
-        defaultValues: {
-            description: "",
-        }
-    })
-    const onSubmit = (values: { description: string }) => {
-        console.log(values);
+    const context = useContext(SearchContext);
+    if (!context) {
+        return;
     }
+    const { getEditorContent } = context;
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormControl>
-                            <Tiptap description={field.name} onclick={field.onChange} />
-                        </FormControl>
-                    )}
-                />
-            </form>
-        </Form>
+        <>
+            <Tiptap onclick={(richText: string) => getEditorContent(richText)} />
+        </>
     )
 }
